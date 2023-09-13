@@ -60,8 +60,8 @@ class App(customtkinter.CTk):
         # self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # create textbox
-        self.textbox = customtkinter.CTkTextbox(self, width=100)
-        self.textbox.grid(row=0, column=1, padx=(20, 10), pady=(20, 40), sticky="nsew")
+        self.textbox = customtkinter.CTkTextbox(self,height= 1500, width=100)
+        self.textbox.grid(row=0, column=1, padx=(10, 10), pady=(10, 10), sticky="nsew")
         type = 'general'
         BASE_URL = f'http://newsapi.org/v2/top-headlines?country=in&category={type}&apiKey='+apiKey
         self.textbox.delete("1.0", END)
@@ -79,7 +79,7 @@ class App(customtkinter.CTk):
             else:
                 self.txtarea.insert(END, "Sorry no news available")
         except Exception as e:
-            messagebox.showerror('ERROR', "Sorry cant connect to internet or some issues with newsapp :'(")                
+            messagebox.showerror('ERROR', "Sorry cant connect to internet or some issues with ZF newsapp")                
        
 
     # def open_input_dialog_event(self):
