@@ -31,14 +31,15 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure((0, 1, 2), weight=1)
 
         # create sidebar frame with widgets
+
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="ZF News", font=customtkinter.CTkFont(size=25, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
-        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.method1,text= 'New Joiners')
+        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.new_method,text= 'News')
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
-        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.new_method,text='News')
+        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.method1,text='New joiners')
         self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
         self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.method1,text='Notes')
         self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
@@ -67,26 +68,21 @@ class App(customtkinter.CTk):
     def method1(self):
         self.textbox1 = customtkinter.CTkTextbox(self,height= 1500, width=100)
         self.textbox1.grid(row=0, column=1, padx=(10, 10), pady=(10, 10), sticky="nsew")
-        type = 'technology'
-        BASE_URL = f'www.google.com'
-        self.textbox1.insert(END, 'text1')
-        self.textbox1.delete("1.0", END)
-        # try:
-        #     articles = (requests.get(BASE_URL).json())['articles']
-        #     if(articles != 0):
-        #         for i in range(len(articles)):
-        #             self.textbox1.insert(END, f'News : {i+1}\n\n')
-        #             self.textbox1.insert(END, f"{articles[i]['title']}\n")
-        #             self.textbox1.insert(END, f"{articles[i]['description']}\n\n")
-        #             self.textbox1.insert(END, f"{articles[i]['content']}\n\n")
+        text_file = open("notes.txt", "r")
+        content = text_file.read()
+        self.textbox1.insert(END, content)
+        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.save_text,text='Save')
+        self.sidebar_button_4.grid(row=4, column=0, padx=20, pady=10)
+        text_file.close()
+        
+    def save_text(self):
+            text_file = open("notes.txt", "w")
+            text_file.write(self.textbox1.get(1.0, END))
+            text_file.close() 
 
-        #             self.textbox1.insert(END, f"link : {articles[i]['url']}\n")
-        #             self.textbox1.insert(END, "\n\n")
-                    
-        #     else:
-        #         self.textbox1.insert(END, "Sorry no news available")
-        # except Exception as e:
-        #     messagebox.showerror('ERROR', "Sorry cant connect to internet or some issues with ZF newsapp")    
+
+
+
 
 
     def new_method(self):
